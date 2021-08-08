@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Entity
 @Getter
 @Setter
-@ToString(onlyExplicitlyIncluded = true)
+@ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,8 +21,11 @@ public class Users implements Serializable {
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @ToString.Include
+
     Long stuId;
+    String name;
+    String email;
+
 
 
 
