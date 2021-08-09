@@ -13,4 +13,10 @@ public class HomeController {
         log.warn("executing...");
         return "template";
     }
+    @GetMapping("/login")
+    public String login(){
+        return "login";
+    }
+
+
 }
