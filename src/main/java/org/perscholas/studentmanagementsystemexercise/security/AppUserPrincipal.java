@@ -3,6 +3,7 @@ package org.perscholas.studentmanagementsystemexercise.security;
 import lombok.extern.slf4j.Slf4j;
 import org.perscholas.studentmanagementsystemexercise.models.AuthGroup;
 import org.perscholas.studentmanagementsystemexercise.models.Users;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,6 +14,7 @@ public class AppUserPrincipal implements UserDetails {
 
     private Users user;
     private List<AuthGroup> authGroups;
+
 
     public AppUserPrincipal(Users user, List<AuthGroup> authGroups) {
         this.user = user;
@@ -28,6 +30,8 @@ public class AppUserPrincipal implements UserDetails {
         Set<SimpleGrantedAuthority> grantedAuthorities = new HashSet<>();
         authGroups.forEach(authGroup -> grantedAuthorities.add(new SimpleGrantedAuthority(authGroup.getAuthGroup())));
         return grantedAuthorities;
+
+
     }
 
     @Override

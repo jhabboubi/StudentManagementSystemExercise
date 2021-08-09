@@ -7,6 +7,7 @@ import org.perscholas.studentmanagementsystemexercise.dao.AuthGroupRepo;
 import org.perscholas.studentmanagementsystemexercise.dao.UsersRepo;
 import org.perscholas.studentmanagementsystemexercise.models.AuthGroup;
 import org.perscholas.studentmanagementsystemexercise.models.Users;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,10 +23,13 @@ public class AppUserDetailsService implements UserDetailsService {
     UsersRepo usersRepo;
     AuthGroupRepo authGroupRepo;
 
+
     public AppUserDetailsService(UsersRepo usersRepo, AuthGroupRepo authGroupRepo) {
         this.usersRepo = usersRepo;
         this.authGroupRepo = authGroupRepo;
     }
+
+
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
@@ -33,7 +37,7 @@ public class AppUserDetailsService implements UserDetailsService {
         Optional<Users> user = usersRepo.findByEmail(s);
         if(user.isEmpty())
             throw new UsernameNotFoundException("No user " + s);
-        List<AuthGroup> authGroups = this .authGroupRepo.findByUserId(user.get().getId());
+        List<AuthGroup> authGroups = authGroupRepo.findByUserId(user.get().getId());
         log.warn(authGroups.toString());
         return new AppUserPrincipal(user.get(),authGroups);
     }
